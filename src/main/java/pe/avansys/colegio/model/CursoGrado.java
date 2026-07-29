@@ -16,15 +16,15 @@ public class CursoGrado {
     private Integer idCursoGrado;
 
     @ManyToOne
-    @JoinColumn(name = "id_curso", nullable = false)
+    @JoinColumn(name = "id_curso")
     private Curso curso;
 
     @ManyToOne
-    @JoinColumn(name = "id_nivel", nullable = false)
+    @JoinColumn(name = "id_nivel")
     private Nivel nivel;
 
     @ManyToOne
-    @JoinColumn(name = "id_grado", nullable = false)
+    @JoinColumn(name = "id_grado")
     private Grado grado;
 
     @Column(name = "horas_semanales")

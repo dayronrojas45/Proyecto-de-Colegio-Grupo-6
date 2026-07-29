@@ -13,6 +13,6 @@ public class Curso {
     @Column(name = "id_curso")
     private Integer idCurso;
 
-    @Column(name = "nombre", nullable = false, length = 80, unique = true)
+    @Column(name = "nombre")
     private String nombre;
 }

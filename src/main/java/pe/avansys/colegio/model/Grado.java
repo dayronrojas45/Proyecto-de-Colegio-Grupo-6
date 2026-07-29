@@ -13,6 +13,6 @@ public class Grado {
     @Column(name = "id_grado")
     private Integer idGrado;
 
-    @Column(name = "nombre", nullable = false, length = 30, unique = true)
+    @Column(name = "nombre")
     private String nombre;
 }

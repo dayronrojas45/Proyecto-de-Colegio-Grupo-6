@@ -15,21 +15,21 @@ public class Horario {
     private Integer idHorario;
 
     @ManyToOne
-    @JoinColumn(name = "id_profesor_curso", nullable = false)
+    @JoinColumn(name = "id_profesor_curso")
     private ProfesorCurso profesorCurso;
 
     @ManyToOne
-    @JoinColumn(name = "id_aula", nullable = false)
+    @JoinColumn(name = "id_aula")
     private Aula aula;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "dia", nullable = false, columnDefinition = "ENUM('LUNES','MARTES','MIERCOLES','JUEVES','VIERNES')")
+    @Column(name = "dia", columnDefinition = "ENUM('LUNES','MARTES','MIERCOLES','JUEVES','VIERNES')")
     private Dia dia;
 
-    @Column(name = "hora_inicio", nullable = false)
+    @Column(name = "hora_inicio")
     private LocalTime horaInicio;
 
-    @Column(name = "hora_fin", nullable = false)
+    @Column(name = "hora_fin")
     private LocalTime horaFin;
 
     public enum Dia {
