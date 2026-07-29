@@ -1,4 +1,4 @@
 package pe.avansys.colegio.repository;
 
-public class ProfesorCursoRepository {
+public interface ProfesorCursoRepository {
 }
