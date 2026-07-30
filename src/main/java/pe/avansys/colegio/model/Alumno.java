@@ -12,7 +12,7 @@ public class Alumno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_alumno")
-    private Integer idAlumno;
+    private Long idAlumno;
 
     @OneToOne
     @JoinColumn(name = "id_usuario", nullable = false, unique = true)
@@ -31,7 +31,7 @@ public class Alumno {
     private LocalDate fechaNacimiento;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sexo", columnDefinition = "ENUM('M','F')")
+    @Column(name = "sexo")
     private Sexo sexo;
 
     @Column(name = "direccion", length = 200)

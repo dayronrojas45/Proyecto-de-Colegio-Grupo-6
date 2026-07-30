@@ -27,18 +27,18 @@ public class CursoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CursoDTO> obtenerCurso(@PathVariable Integer id) {
+    public ResponseEntity<CursoDTO> obtenerCurso(@PathVariable Long id) {
         return ResponseEntity.ok(cursoService.obtenerCursoPorId(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CursoDTO> actualizarCurso(@PathVariable Integer id,
+    public ResponseEntity<CursoDTO> actualizarCurso(@PathVariable Long id,
                                                     @RequestBody CursoDTO cursoDTO) {
         return ResponseEntity.ok(cursoService.actualizarCurso(id, cursoDTO));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarCurso(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarCurso(@PathVariable Long id) {
         cursoService.eliminarCurso(id);
         return ResponseEntity.noContent().build();
     }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pe.avansys.colegio.model.Grado;
 
 @Repository
-public interface GradoRepository extends JpaRepository<Grado, Integer> {
+public interface GradoRepository extends JpaRepository<Grado, Long> {
 
     // Buscar grado por nombre
     boolean existsByNombre(String nombre);

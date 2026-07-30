@@ -1,19 +1,20 @@
 package pe.avansys.colegio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
-@Table(name = "aula", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"id_nivel", "id_grado", "seccion"})
-})
+@Table(name = "aula")
 public class Aula {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_aula")
-    private Integer idAula;
+    private Long idAula;
 
     @ManyToOne
     @JoinColumn(name = "id_nivel", nullable = false)

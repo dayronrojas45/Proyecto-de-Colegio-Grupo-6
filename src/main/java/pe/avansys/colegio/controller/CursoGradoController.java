@@ -27,14 +27,14 @@ public class CursoGradoController {
     }
 
     @GetMapping("/curso/{idCurso}")
-    public ResponseEntity<List<CursoGradoDTO>> listarPorCurso(@PathVariable Integer idCurso) {
+    public ResponseEntity<List<CursoGradoDTO>> listarPorCurso(@PathVariable Long idCurso) {
         return ResponseEntity.ok(cursoGradoService.listarPorCurso(idCurso));
     }
 
     @GetMapping("/nivel/{idNivel}/grado/{idGrado}")
     public ResponseEntity<List<CursoGradoDTO>> listarPorNivelYGrado(
-            @PathVariable Integer idNivel,
-            @PathVariable Integer idGrado) {
+            @PathVariable Long idNivel,
+            @PathVariable Long idGrado) {
         return ResponseEntity.ok(cursoGradoService.listarPorNivelYGrado(idNivel, idGrado));
     }
 

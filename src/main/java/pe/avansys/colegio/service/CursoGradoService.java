@@ -62,13 +62,13 @@ public class CursoGradoService {
                 .collect(Collectors.toList());
     }
 
-    public List<CursoGradoDTO> listarPorCurso(Integer idCurso) {
+    public List<CursoGradoDTO> listarPorCurso(Long idCurso) {
         return cursoGradoRepository.findByCursoIdCurso(idCurso).stream()
                 .map(this::convertirADTO)
                 .collect(Collectors.toList());
     }
 
-    public List<CursoGradoDTO> listarPorNivelYGrado(Integer idNivel, Integer idGrado) {
+    public List<CursoGradoDTO> listarPorNivelYGrado(Long idNivel, Long idGrado) {
         return cursoGradoRepository.findByNivelIdNivelAndGradoIdGrado(idNivel, idGrado).stream()
                 .map(this::convertirADTO)
                 .collect(Collectors.toList());
@@ -84,12 +84,8 @@ public class CursoGradoService {
 
     private CursoGradoDTO convertirADTO(CursoGrado cursoGrado) {
         CursoGradoDTO dto = new CursoGradoDTO();
-        dto.setIdCursoGrado(cursoGrado.getIdCursoGrado());
-        dto.setIdCurso(cursoGrado.getCurso().getIdCurso());
         dto.setNombreCurso(cursoGrado.getCurso().getNombre());
-        dto.setIdNivel(cursoGrado.getNivel().getIdNivel());
         dto.setNombreNivel(cursoGrado.getNivel().getNombre());
-        dto.setIdGrado(cursoGrado.getGrado().getIdGrado());
         dto.setNombreGrado(cursoGrado.getGrado().getNombre());
         dto.setHorasSemanales(cursoGrado.getHorasSemanales());
         return dto;

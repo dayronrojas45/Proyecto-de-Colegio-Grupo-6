@@ -1,7 +1,11 @@
 package pe.avansys.colegio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -11,7 +15,7 @@ public class Profesor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_profesor")
-    private Integer idProfesor;
+    private Long idProfesor;
 
     @OneToOne
     @JoinColumn(name = "id_usuario", nullable = false, unique = true)
@@ -34,4 +38,8 @@ public class Profesor {
 
     @Column(name = "especialidad", length = 100)
     private String especialidad;
+
+    @OneToMany(mappedBy = "tutor")
+    @JsonIgnore
+    private List<Aula> aulas;
 }

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import pe.avansys.colegio.model.Curso;
 
 @Repository
-public interface CursoRepository extends JpaRepository<Curso, Integer> {
+public interface CursoRepository extends JpaRepository<Curso, Long> {
     boolean existsByNombre(String nombre);
 }

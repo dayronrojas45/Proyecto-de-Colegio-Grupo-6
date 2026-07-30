@@ -34,14 +34,14 @@ public class CursoService {
                 .collect(Collectors.toList());
     }
 
-    public CursoDTO obtenerCursoPorId(Integer id) {
+    public CursoDTO obtenerCursoPorId(Long id) {
         Curso curso = cursoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
         return convertirADTO(curso);
     }
 
     @Transactional
-    public CursoDTO actualizarCurso(Integer id, CursoDTO cursoDTO) {
+    public CursoDTO actualizarCurso(Long id, CursoDTO cursoDTO) {
         Curso curso = cursoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
         curso.setNombre(cursoDTO.getNombre());
@@ -50,7 +50,7 @@ public class CursoService {
     }
 
     @Transactional
-    public void eliminarCurso(Integer id) {
+    public void eliminarCurso(Long id) {
         if (!cursoRepository.existsById(id)) {
             throw new RuntimeException("Curso no encontrado");
         }

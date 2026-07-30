@@ -7,6 +7,6 @@ import pe.avansys.colegio.model.Rol;
 import java.util.Optional;
 
 @Repository
-public interface RolRepository extends JpaRepository<Rol, Integer> {
+public interface RolRepository extends JpaRepository<Rol, Long> {
     Optional<Rol> findByNombre(String nombre);
 }

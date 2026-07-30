@@ -11,14 +11,14 @@ import java.util.List;
 @Repository
 public interface CursoGradoRepository extends JpaRepository<CursoGrado, Integer> {
 
-    List<CursoGrado> findByCursoIdCurso(Integer idCurso);
+    List<CursoGrado> findByCursoIdCurso(Long idCurso);
 
-    List<CursoGrado> findByNivelIdNivelAndGradoIdGrado(Integer idNivel, Integer idGrado);
+    List<CursoGrado> findByNivelIdNivelAndGradoIdGrado(Long idNivel, Long idGrado);
 
-    boolean existsByCursoIdCursoAndNivelIdNivelAndGradoIdGrado(Integer idCurso, Integer idNivel, Integer idGrado);
+    boolean existsByCursoIdCursoAndNivelIdNivelAndGradoIdGrado(Long idCurso, Long idNivel, Long idGrado);
 
     @Query("SELECT cg FROM CursoGrado cg WHERE cg.curso.idCurso = :idCurso AND cg.nivel.idNivel = :idNivel AND cg.grado.idGrado = :idGrado")
-    CursoGrado findByCursoAndNivelAndGrado(@Param("idCurso") Integer idCurso,
-                                           @Param("idNivel") Integer idNivel,
-                                           @Param("idGrado") Integer idGrado);
+    CursoGrado findByCursoAndNivelAndGrado(@Param("idCurso") Long idCurso,
+                                           @Param("idNivel") Long idNivel,
+                                           @Param("idGrado") Long idGrado);
 }

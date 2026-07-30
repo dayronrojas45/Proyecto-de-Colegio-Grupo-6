@@ -1,4 +1,4 @@
-package pe.avansys.colegio.controllers;
+package pe.avansys.colegio.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,17 +21,17 @@ public class UsuarioController {
         return usuarioService.listarTodos();
     }
 
+    @PostMapping("/registro")
+    public ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario){
+        Usuario guardado = usuarioService.registrar(usuario);
+        return ResponseEntity.ok(guardado);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarPorId(@PathVariable Integer id) {
         return usuarioService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PostMapping
-    public ResponseEntity<Usuario> registrarUsuario(@RequestBody Usuario usuario) {
-        Usuario nuevoUsuario = usuarioService.registrarUsuario(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
     }
 
     @DeleteMapping("/{id}")

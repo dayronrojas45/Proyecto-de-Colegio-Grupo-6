@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pe.avansys.colegio.model.Nivel;
 
 @Repository
-public interface NivelRepository extends JpaRepository<Nivel, Integer> {
+public interface NivelRepository extends JpaRepository<Nivel, Long> {
 
     // Buscar nivel por nombre
     boolean existsByNombre(String nombre);

@@ -5,9 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "profesor_curso", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"id_profesor", "id_curso_grado"})
-})
+@Table(name = "profesor_curso")
 public class ProfesorCurso {
 
     @Id

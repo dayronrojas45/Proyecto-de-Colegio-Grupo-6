@@ -1,4 +1,4 @@
-package pe.avansys.colegio.controllers;
+package pe.avansys.colegio.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

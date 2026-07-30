@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class CursoGradoDTO {
-    private Integer idCursoGrado;
-    private Integer idCurso;
+    private Long idCursoGrado;
+    private Long idCurso;
     private String nombreCurso;
-    private Integer idNivel;
+    private Long idNivel;
     private String nombreNivel;
-    private Integer idGrado;
+    private Long idGrado;
     private String nombreGrado;
     private Integer horasSemanales;
 }

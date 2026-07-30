@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class CursoDTO {
-    private Integer idCurso;
+    private Long idCurso;
     private String nombre;
 }
