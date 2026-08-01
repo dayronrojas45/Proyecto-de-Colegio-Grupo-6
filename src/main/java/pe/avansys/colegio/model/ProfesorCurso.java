@@ -5,19 +5,21 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "profesor_curso")
+@Table(name = "profesor_curso", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"id_profesor", "id_curso_grado"})
+})
 public class ProfesorCurso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_profesor_curso")
-    private Integer idProfesorCurso;
+    private Long   idProfesorCurso;
 
-    @ManyToOne
-    @JoinColumn(name = "id_profesor", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_profesor")
     private Profesor profesor;
 
-    @ManyToOne
-    @JoinColumn(name = "id_curso_grado", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_curso_grado")
     private CursoGrado cursoGrado;
 }

@@ -9,7 +9,7 @@ import pe.avansys.colegio.model.CursoGrado;
 import java.util.List;
 
 @Repository
-public interface CursoGradoRepository extends JpaRepository<CursoGrado, Integer> {
+public interface CursoGradoRepository extends JpaRepository<CursoGrado, Long > {
 
     List<CursoGrado> findByCursoIdCurso(Long idCurso);
 

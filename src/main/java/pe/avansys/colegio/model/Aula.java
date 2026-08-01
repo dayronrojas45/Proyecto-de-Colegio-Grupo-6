@@ -8,13 +8,15 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "aula")
+@Table(name = "aula", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"id_nivel", "id_grado", "seccion"})
+})
 public class Aula {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_aula")
-    private Long idAula;
+    private Long  idAula;
 
     @ManyToOne
     @JoinColumn(name = "id_nivel", nullable = false)

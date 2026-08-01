@@ -75,7 +75,7 @@ public class CursoGradoService {
     }
 
     @Transactional
-    public void eliminarAsignacion(Integer id) {
+    public void eliminarAsignacion(Long  id) {
         if (!cursoGradoRepository.existsById(id)) {
             throw new RuntimeException("Asignación no encontrada");
         }

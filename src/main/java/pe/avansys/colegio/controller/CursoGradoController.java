@@ -39,7 +39,7 @@ public class CursoGradoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarAsignacion(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarAsignacion(@PathVariable Long  id) {
         cursoGradoService.eliminarAsignacion(id);
         return ResponseEntity.noContent().build();
     }
