@@ -36,7 +36,7 @@ public class ProfesorCursoService {
 
         Profesor profesor = profesorRepository.findById(dto.getIdProfesor())
                 .orElseThrow(() -> new RuntimeException("Profesor no encontrado"));
-        CursoGrado cursoGrado = cursoGradoRepository.findById(dto.getIdCursoGrado2())
+        CursoGrado cursoGrado = cursoGradoRepository.findById(dto.getIdCursoGrado())
                 .orElseThrow(() -> new RuntimeException("Curso-Grado no encontrado"));
 
         ProfesorCurso profesorCurso = new ProfesorCurso();

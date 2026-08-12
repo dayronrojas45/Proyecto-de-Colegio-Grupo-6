@@ -30,20 +30,20 @@ public class HorarioService {
 
     @Transactional
     public HorarioDTO crearHorario(CrearHorarioRequestDTO dto) {
-        // Validar que el ProfesorCurso exista
+
         ProfesorCurso profesorCurso = profesorCursoRepository.findById(dto.getIdProfesorCurso())
                 .orElseThrow(() -> new RuntimeException("Asignación profesor-curso no encontrada"));
 
-        // Validar que el Aula exista
+
         Aula aula = aulaRepository.findById(dto.getIdAula())
                 .orElseThrow(() -> new RuntimeException("Aula no encontrada"));
 
-        // Validar que hora_inicio sea menor que hora_fin
+
         if (dto.getHoraInicio().isAfter(dto.getHoraFin()) || dto.getHoraInicio().equals(dto.getHoraFin())) {
             throw new RuntimeException("La hora de inicio debe ser menor que la hora de fin");
         }
 
-        // Convertir dia String a Enum
+
         Dia diaEnum;
         try {
             diaEnum = Dia.valueOf(dto.getDia().toUpperCase());
@@ -51,14 +51,14 @@ public class HorarioService {
             throw new RuntimeException("Día inválido. Debe ser LUNES, MARTES, MIERCOLES, JUEVES o VIERNES");
         }
 
-        // Validar que no haya conflicto de horario para el Aula
+
         List<Horario> conflictosAula = horarioRepository.findConflictsByAulaAndTime(
                 dto.getIdAula(), diaEnum, dto.getHoraInicio(), dto.getHoraFin());
         if (!conflictosAula.isEmpty()) {
             throw new RuntimeException("El aula ya tiene un curso asignado en ese horario");
         }
 
-        // Validar que no haya conflicto de horario para el Profesor
+
         List<Horario> conflictosProfesor = horarioRepository.findConflictsByProfesorAndTime(
                 profesorCurso.getProfesor().getIdProfesor(), diaEnum, dto.getHoraInicio(), dto.getHoraFin());
         if (!conflictosProfesor.isEmpty()) {

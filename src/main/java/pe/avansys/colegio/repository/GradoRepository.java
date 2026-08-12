@@ -7,9 +7,9 @@ import pe.avansys.colegio.model.Grado;
 @Repository
 public interface GradoRepository extends JpaRepository<Grado, Long> {
 
-    // Buscar grado por nombre
+
     boolean existsByNombre(String nombre);
 
-    // Buscar grado por nombre (para validaciones)
+
     Grado findByNombre(String nombre);
 }
