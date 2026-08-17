@@ -7,15 +7,13 @@ import java.time.Year;
 
 @Data
 @Entity
-@Table(name = "matricula", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"id_alumno", "anio"})
-})
+@Table(name = "matricula")
 public class Matricula {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_matricula")
-    private Integer idMatricula;
+    private Long idMatricula;
 
     @ManyToOne
     @JoinColumn(name = "id_alumno", nullable = false)

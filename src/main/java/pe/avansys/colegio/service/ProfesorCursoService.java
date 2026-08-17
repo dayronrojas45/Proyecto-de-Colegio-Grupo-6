@@ -28,7 +28,7 @@ public class ProfesorCursoService {
 
     @Transactional
     public ProfesorCursoDTO asignarProfesorACurso(ProfesorCursoDTO dto) {
-        // Validar que no exista ya la asignación
+
         if (profesorCursoRepository.existsByProfesorIdProfesorAndCursoGradoIdCursoGrado(
                 dto.getIdProfesor(), dto.getIdCursoGrado())) {
             throw new RuntimeException("El profesor ya está asignado a este curso-grado");

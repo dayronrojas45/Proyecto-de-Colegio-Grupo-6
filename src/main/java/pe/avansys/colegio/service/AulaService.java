@@ -35,6 +35,6 @@ public class AulaService {
     }
 
     public List<Aula> obtenerPorGrado(String grado){
-        return aulaRepository.findByGrado(grado);
+        return aulaRepository.findByGradoNombre(grado);
     }
 }

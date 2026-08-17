@@ -28,14 +28,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarPorId(@PathVariable Integer id) {
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
         return usuarioService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarUsuario(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
         if (usuarioService.buscarPorId(id).isPresent()) {
             usuarioService.eliminarUsuario(id);
             return ResponseEntity.noContent().build();

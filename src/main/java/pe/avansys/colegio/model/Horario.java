@@ -15,11 +15,11 @@ public class Horario {
     private Long   idHorario;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_profesor_curso")
+    @JoinColumn(name = "id_profesor_curso", nullable = false)
     private ProfesorCurso profesorCurso;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_aula")
+    @JoinColumn(name = "id_aula", nullable = false)
     private Aula aula;
 
     @Enumerated(EnumType.STRING)

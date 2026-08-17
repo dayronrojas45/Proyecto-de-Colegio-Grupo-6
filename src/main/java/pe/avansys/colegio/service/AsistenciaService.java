@@ -20,7 +20,7 @@ public class AsistenciaService {
     }
 
 
-    public Optional<Asistencia> buscarPorId(Integer id) {
+    public Optional<Asistencia> buscarPorId(Long id) {
         return asistenciaRepository.findById(id);
     }
 
@@ -29,12 +29,12 @@ public class AsistenciaService {
         return asistenciaRepository.save(asistencia);
     }
 
-    public List<Asistencia> listarPorAlumno(Integer idAlumno) {
+    public List<Asistencia> listarPorAlumno(Long idAlumno) {
         return asistenciaRepository.findByAlumnoIdAlumno(idAlumno);
     }
 
 
-    public void eliminarAsistencia(Integer id) {
+    public void eliminarAsistencia(Long id) {
         asistenciaRepository.deleteById(id);
     }
 }

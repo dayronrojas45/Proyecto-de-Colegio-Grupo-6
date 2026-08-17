@@ -23,7 +23,7 @@ public class MatriculaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Matricula> buscarPorId(@PathVariable Integer id) {
+    public ResponseEntity<Matricula> buscarPorId(@PathVariable Long id) {
         return matriculaService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -36,7 +36,7 @@ public class MatriculaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Matricula> actualizar(@PathVariable Integer id, @RequestBody Matricula matricula) {
+    public ResponseEntity<Matricula> actualizar(@PathVariable Long id, @RequestBody Matricula matricula) {
         return matriculaService.buscarPorId(id)
                 .map(m -> {
                     matricula.setIdMatricula(id);
@@ -46,7 +46,7 @@ public class MatriculaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         if (matriculaService.buscarPorId(id).isPresent()) {
             matriculaService.eliminar(id);
             return ResponseEntity.noContent().build();

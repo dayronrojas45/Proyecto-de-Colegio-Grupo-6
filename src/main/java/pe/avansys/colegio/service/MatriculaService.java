@@ -19,7 +19,7 @@ public class MatriculaService {
         return matriculaRepository.findAll();
     }
 
-    public Optional<Matricula> buscarPorId(Integer id) {
+    public Optional<Matricula> buscarPorId(Long id) {
         return matriculaRepository.findById(id);
     }
 
@@ -27,7 +27,7 @@ public class MatriculaService {
         return matriculaRepository.save(matricula);
     }
 
-    public void eliminar(Integer id) {
+    public void eliminar(Long id) {
         matriculaRepository.deleteById(id);
     }
 }

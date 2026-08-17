@@ -14,7 +14,7 @@ public class Asistencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_asistencia")
-    private Integer idAsistencia;
+    private Long idAsistencia;
 
     @ManyToOne
     @JoinColumn(name = "id_alumno", nullable = false)

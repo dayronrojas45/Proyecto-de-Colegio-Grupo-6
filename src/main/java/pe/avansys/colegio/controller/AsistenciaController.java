@@ -1,7 +1,6 @@
 package pe.avansys.colegio.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.avansys.colegio.model.Asistencia;
@@ -12,9 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/asistencias")
 public class AsistenciaController {
-    @Autowired
+
     private AsistenciaService asistenciaService;
 
+    public AsistenciaController(AsistenciaService asistenciaService) {
+        this.asistenciaService = asistenciaService;
+    }
 
     @GetMapping
     public List<Asistencia> listarTodas() {
@@ -23,7 +25,7 @@ public class AsistenciaController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Asistencia> buscarPorId(@PathVariable Integer id) {
+    public ResponseEntity<Asistencia> buscarPorId(@PathVariable Long id) {
         return asistenciaService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -31,7 +33,7 @@ public class AsistenciaController {
 
 
     @GetMapping("/alumno/{idAlumno}")
-    public List<Asistencia> listarPorAlumno(@PathVariable Integer idAlumno) {
+    public List<Asistencia> listarPorAlumno(@PathVariable Long idAlumno) {
         return asistenciaService.listarPorAlumno(idAlumno);
     }
 
@@ -43,7 +45,7 @@ public class AsistenciaController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarAsistencia(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarAsistencia(@PathVariable Long id) {
         if (asistenciaService.buscarPorId(id).isPresent()) {
             asistenciaService.eliminarAsistencia(id);
             return ResponseEntity.noContent().build();

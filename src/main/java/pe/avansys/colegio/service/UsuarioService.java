@@ -23,10 +23,37 @@ public class UsuarioService {
     }
 
     public Usuario registrar(Usuario usuario){
+        if (usuario.getRol() == null || usuario.getRol().getIdRol() == null) {
+            throw new IllegalArgumentException("Rol es requerido");
+        }
+
+        Long idRol = usuario.getRol().getIdRol();
+        if (!rolRepository.existsById(idRol)) {
+            throw new IllegalArgumentException("Rol no existe");
+        }
+
+        long cantidad = usuarioRepository.countByRolIdRol(idRol);
+        int limite = getLimiteRol(idRol);
+
+        if (cantidad >= limite) {
+            throw new IllegalArgumentException(
+                    "Límite de " + usuario.getRol().getNombre() + " alcanzado (" + limite + ")"
+            );
+        }
+
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> buscarPorId(Integer id) {
+    private int getLimiteRol(Long idRol) {
+        return switch(idRol.intValue()) {
+            case 1 -> 10;
+            case 2 -> 50;
+            case 3 -> 500;
+            default -> 100;
+        };
+    }
+
+    public Optional<Usuario> buscarPorId(Long id) {
         return usuarioRepository.findById(id);
     }
 
@@ -34,7 +61,7 @@ public class UsuarioService {
         return usuarioRepository.findByUsername(username);
     }
 
-    public void eliminarUsuario(Integer id) {
+    public void eliminarUsuario(Long id) {
         usuarioRepository.deleteById(id);
     }
 }
