@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AuthResponse {
+public class LoginResponse {
+    private Long id;
     private String username;
     private String rol;
     private String mensaje;
-    private boolean exito;
 }

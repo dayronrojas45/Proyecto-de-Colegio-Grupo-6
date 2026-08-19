@@ -16,9 +16,4 @@ public interface CursoGradoRepository extends JpaRepository<CursoGrado, Long > {
     List<CursoGrado> findByNivelIdNivelAndGradoIdGrado(Long idNivel, Long idGrado);
 
     boolean existsByCursoIdCursoAndNivelIdNivelAndGradoIdGrado(Long idCurso, Long idNivel, Long idGrado);
-
-    @Query("SELECT cg FROM CursoGrado cg WHERE cg.curso.idCurso = :idCurso AND cg.nivel.idNivel = :idNivel AND cg.grado.idGrado = :idGrado")
-    CursoGrado findByCursoAndNivelAndGrado(@Param("idCurso") Long idCurso,
-                                           @Param("idNivel") Long idNivel,
-                                           @Param("idGrado") Long idGrado);
 }

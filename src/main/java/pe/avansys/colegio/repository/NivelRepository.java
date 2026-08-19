@@ -7,9 +7,4 @@ import pe.avansys.colegio.model.Nivel;
 @Repository
 public interface NivelRepository extends JpaRepository<Nivel, Long> {
 
-
-    boolean existsByNombre(String nombre);
-
-
-    Nivel findByNombre(String nombre);
 }

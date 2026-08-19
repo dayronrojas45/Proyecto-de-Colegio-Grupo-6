@@ -12,18 +12,4 @@ import java.util.List;
 @Repository
 public interface MatriculaRepository extends JpaRepository<Matricula, Long> {
 
-
-    List<Matricula> findByAlumno_IdAlumno(Long idAlumno);
-
-    List<Matricula> findByAula_IdAula(Long idAula);
-
-    List<Matricula> findByEstado(Matricula.EstadoMatricula estado);
-
-    boolean existsByAlumnoIdAlumnoAndAnio(Long idAlumno, Integer anio);
-
-    Long countByAulaIdAulaAndAnio(Long idAula, Integer anio);
-
-    @Query("SELECT a.capacidad FROM Aula a WHERE a.idAula = :aulaId")
-    Integer obtenerCapacidadAula(@Param("aulaId") Long aulaId);
-
 }

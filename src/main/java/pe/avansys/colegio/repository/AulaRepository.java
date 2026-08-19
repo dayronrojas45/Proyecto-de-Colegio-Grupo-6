@@ -8,5 +8,4 @@ import java.util.List;
 public interface AulaRepository extends JpaRepository<Aula, Long> {
 
     List<Aula> findByGradoNombre(String nombre);
-    boolean existsByNivelIdNivelAndGradoIdGradoAndSeccion(Long idNivel, Long idGrado, String seccion);
 }
