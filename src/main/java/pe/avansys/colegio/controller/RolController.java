@@ -17,7 +17,7 @@ public class RolController {
         this.rolService = rolService;
     }
 
-    @PostMapping("/registro")
+    @PostMapping
     public ResponseEntity<Rol> registrar(@RequestBody Rol rol){
         Rol guardado = rolService.registrar(rol);
         return ResponseEntity.ok(guardado);
@@ -45,4 +45,10 @@ public class RolController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        rolService.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

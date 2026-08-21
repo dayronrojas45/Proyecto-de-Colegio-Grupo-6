@@ -1,0 +1,30 @@
+
+.card {
+  border: none;
+}
+
+.table th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.pagination .page-link {
+  color: #1a2332;
+}
+
+.pagination .active .page-link {
+  background-color: #1a2332;
+  border-color: #1a2332;
+  color: white;
+}
+
+.btn-outline-primary, .btn-outline-warning, .btn-outline-danger {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+}

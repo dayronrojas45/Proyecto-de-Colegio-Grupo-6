@@ -27,6 +27,10 @@ public class UsuarioService {
             throw new IllegalArgumentException("Rol es requerido");
         }
 
+        if (usuario.getIdUsuario() != null && usuario.getIdUsuario() == 0) {
+            usuario.setIdUsuario(null);
+        }
+
         Long idRol = usuario.getRol().getIdRol();
         if (!rolRepository.existsById(idRol)) {
             throw new IllegalArgumentException("Rol no existe");
@@ -59,6 +63,17 @@ public class UsuarioService {
 
     public Optional<Usuario> buscarPorUsername(String username) {
         return usuarioRepository.findByUsername(username);
+    }
+
+    public Usuario actualizarUsuarioSimple(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
+    public void desactivarUsuario(Long id) {
+        usuarioRepository.findById(id).ifPresent(usuario -> {
+            usuario.setEstado(false); // Cambiamos el estado a Inactivo
+            usuarioRepository.save(usuario);
+        });
     }
 
     public void eliminarUsuario(Long id) {

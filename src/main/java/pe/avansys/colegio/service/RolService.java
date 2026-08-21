@@ -30,4 +30,9 @@ public class RolService {
     public Rol actualizar(Rol rol){
         return rolRepository.save(rol);
     }
+
+    public void eliminar(Long id) {
+        rolRepository.deleteById(id);
+    }
+
 }

@@ -1,0 +1,78 @@
+
+<div class="d-flex vh-100 overflow-hidden">
+  <div class="sidebar bg-dark text-white d-flex flex-column flex-shrink-0" [class.collapsed]="!menuAbierto">
+
+    <div class="p-3 border-bottom border-secondary">
+      <h5 class="mb-0 fw-bold" *ngIf="menuAbierto">🏫 Colegio Avansys</h5>
+      <h5 class="mb-0 text-center fw-bold" *ngIf="!menuAbierto">CA</h5>
+      <small class="text-secondary" *ngIf="menuAbierto">Sistema de Gestión</small>
+    </div>
+
+    <ul class="nav nav-pills flex-column mb-auto p-2">
+      <li class="nav-item">
+        <a routerLink="/welcome" routerLinkActive="active" class="nav-link text-white">
+          <span class="me-2">📊</span>
+          <span *ngIf="menuAbierto">Inicio</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/asistencia" routerLinkActive="active" class="nav-link text-white">
+          <span class="me-2">📋</span>
+          <span *ngIf="menuAbierto">Asistencia</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/calificaciones" routerLinkActive="active" class="nav-link text-white">
+          <span class="me-2">⭐</span>
+          <span *ngIf="menuAbierto">Calificaciones</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="border-top border-secondary p-2" *ngIf="menuAbierto">
+      <small class="text-secondary px-2 fw-bold">ADMINISTRACIÓN</small>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item"><a routerLink="/usuarios" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">👥</span> Usuarios</a></li>
+        <li class="nav-item"><a routerLink="/roles" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">🔑</span> Roles</a></li>
+        <li class="nav-item"><a routerLink="/profesores" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">👨‍🏫</span> Profesores</a></li>
+        <li class="nav-item"><a routerLink="/alumnos" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">👨‍🎓</span> Alumnos</a></li>
+        <li class="nav-item"><a routerLink="/aulas" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">🏫</span> Aulas</a></li>
+        <li class="nav-item"><a routerLink="/cursos" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">📚</span> Cursos</a></li>
+        <li class="nav-item"><a routerLink="/curso-grado" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">📋</span> Curso - Grado</a></li>
+        <li class="nav-item"><a routerLink="/niveles" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">📈</span> Niveles</a></li>
+        <li class="nav-item"><a routerLink="/grados" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">🎯</span> Grados</a></li>
+        <li class="nav-item"><a routerLink="/profesor-curso" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">👨‍🏫</span> Profesor - Curso</a></li>
+        <li class="nav-item"><a routerLink="/horarios" routerLinkActive="active" class="nav-link text-white py-1"><span class="me-2">⏰</span> Horarios</a></li>
+      </ul>
+    </div>
+
+    <div class="p-2 border-top border-secondary" *ngIf="menuAbierto">
+      <button (click)="logout()" class="btn btn-outline-danger w-100">
+
+      </button>
+    </div>
+  </div>
+
+  <div class="flex-grow-1 d-flex flex-column overflow-hidden">
+    <header class="bg-white p-3 shadow-sm d-flex justify-content-between align-items-center flex-shrink-0">
+      <div class="d-flex align-items-center gap-3">
+        <button (click)="toggleMenu()" class="btn btn-light btn-sm">
+          ☰
+        </button>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a routerLink="/dashboard" class="text-decoration-none">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ currentPage }}</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <span class="fw-semibold">👤 {{ usuario?.username }}</span>
+        <span class="badge bg-primary">{{ usuario?.rol }}</span>
+      </div>
+    </header>
+    <div class="flex-grow-1 p-4 bg-light overflow-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

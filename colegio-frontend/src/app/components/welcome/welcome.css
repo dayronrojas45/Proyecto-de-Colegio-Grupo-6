@@ -1,0 +1,108 @@
+
+.sidebar {
+  width: 260px;
+  transition: width 0.3s ease;
+  overflow-y: auto;
+  background-color: #1a2332 !important;
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar.collapsed .nav-link span:not(.me-2) {
+  display: none;
+}
+
+.sidebar.collapsed .border-top .nav-link span:not(.me-2) {
+  display: none;
+}
+
+.sidebar .nav-link {
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.sidebar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar .nav-link.active {
+  background: rgba(13, 110, 253, 0.25);
+  color: #fff !important;
+}
+
+.sidebar .nav-link .me-2 {
+  font-size: 1.1rem;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #495057;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #6c757d;
+}
+
+.breadcrumb-item a {
+  color: #6c757d;
+}
+
+.breadcrumb-item a:hover {
+  color: #0d6efd;
+}
+
+.card {
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-body {
+  padding: 0.75rem;
+}
+
+
+.display-4 {
+  font-size: 2.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+  }
+
+  .sidebar .nav-link span:not(.me-2) {
+    display: none;
+  }
+
+  .sidebar .border-top .nav-link span:not(.me-2) {
+    display: none;
+  }
+
+  .sidebar .border-top .nav-link span.me-2 {
+    margin-right: 0 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .display-4 {
+    font-size: 1.8rem;
+  }
+}

@@ -9,7 +9,7 @@ import { Auth } from '../../services/auth';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrl: './login.css',
 })
 export class Login {
   private authService = inject(Auth);
@@ -27,13 +27,15 @@ export class Login {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         this.cargando = false;
-        console.log('Login exitoso:', response);
-        this.router.navigate(['/']);
+        console.log(' Login exitoso, redirigiendo a welcome...', response);
+        // Navegamos a la página de bienvenida
+        this.router.navigate(['/welcome']);
       },
       error: (err) => {
         this.cargando = false;
+        console.error(' Error en el login:', err);
         this.errorMessage = err.error?.mensaje || 'Usuario o contraseña incorrectos';
-      }
+      },
     });
   }
 }

@@ -1,0 +1,168 @@
+<div>
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+      <h4 class="fw-bold mb-1">Usuarios</h4>
+      <p class="text-secondary mb-0">Gestión de usuarios del sistema</p>
+    </div>
+
+    <button class="btn btn-primary" (click)="abrirCrear()">
+      <span class="me-1">➕</span> Nuevo Usuario
+    </button>
+  </div>
+
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <div class="row g-2 align-items-center">
+        <div class="col-auto">
+          <label class="fw-semibold text-secondary me-2">Filtrar por Rol:</label>
+        </div>
+        <div class="col-auto">
+          <select class="form-select form-select-sm">
+            <option>Todos los roles</option>
+            <option>ADMINISTRADOR</option>
+            <option>PROFESOR</option>
+            <option>ALUMNO</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="activos">
+            <label class="form-check-label" for="activos">Solo Activos</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (mostrarFormulario) {
+    <div class="card shadow-sm mb-4 border-primary">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+          @if (editando) { Editar Usuario }
+          @else if (modoVer) { Ver Usuario }
+          @else { Nuevo Usuario }
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+
+          @if (editando || modoVer) {
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">ID Usuario</label>
+              <input type="text" class="form-control" [value]="usuarioForm.idUsuario" disabled>
+            </div>
+          }
+
+          <div class="col-md-6" [class.col-md-12]="!editando && !modoVer">
+            <label class="form-label fw-semibold">Nombre de Usuario</label>
+            <input type="text" class="form-control" [(ngModel)]="usuarioForm.username" [disabled]="modoVer" placeholder="Ingresa el username">
+          </div>
+
+          @if (!modoVer) {
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">
+                Contraseña
+                @if (editando) { <small class="text-secondary">(opcional)</small> }
+              </label>
+              <input type="password" class="form-control" [(ngModel)]="usuarioForm.password" placeholder="Ingresa la contraseña">
+            </div>
+          }
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Rol</label>
+            <select class="form-select" [(ngModel)]="usuarioForm.rol.idRol" [disabled]="modoVer">
+              <option [ngValue]="1">ADMINISTRADOR</option>
+              <option [ngValue]="2">PROFESOR</option>
+              <option [ngValue]="3">ALUMNO</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Estado</label>
+            <select class="form-select" [(ngModel)]="usuarioForm.estado" [disabled]="modoVer">
+              <option [ngValue]="true">Activo</option>
+              <option [ngValue]="false">Inactivo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mt-3 d-flex gap-2">
+          @if (modoVer) {
+            <button class="btn btn-secondary" (click)="cancelar()">Cerrar</button>
+          } @else {
+            <button class="btn btn-success" (click)="guardarUsuario()">
+              <i class="bi bi-floppy"></i>
+              @if (editando) { Actualizar } @else { Guardar }
+            </button>
+            <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+          <tr>
+            <th style="width: 50px;">#</th>
+            <th>NOMBRE COMPLETO</th>
+            <th>ROL</th>
+            <th>ESTADO</th>
+            <th style="width: 280px;">ACCIONES</th>
+          </tr>
+          </thead>
+          <tbody>
+
+            @if (cargando) {
+              <tr>
+                <td colspan="5" class="text-center text-secondary py-4 fst-italic">
+                  Cargando usuarios...
+                </td>
+              </tr>
+            }
+            @if (!cargando && usuarios.length > 0) {
+              @for (usuario of usuarios; track usuario.idUsuario; let i = $index) {
+                <tr>
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    <span class="fw-semibold">{{ usuario.username }}</span>
+                    <br>
+                    <small class="text-secondary fw-bold text-primary">ID: {{ usuario.idUsuario }}</small>
+                  </td>
+                  <td>
+                  <span class="badge" [ngClass]="getRolClass(usuario.rol.nombre)">
+                    {{ usuario.rol.nombre }}
+                  </span>
+                  </td>
+                  <td>
+                  <span class="badge" [ngClass]="getEstadoInfo(usuario.estado).clase">
+                    ● {{ getEstadoInfo(usuario.estado).texto }}
+                  </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-info me-1" (click)="abrirVer(usuario)">Ver</button>
+                    <!-- Botón Editar -->
+                    <button class="btn btn-sm btn-outline-warning me-1" (click)="abrirEditar(usuario)">Editar</button>
+                    <!-- Botón Eliminar -->
+                    <button class="btn btn-sm btn-outline-danger" (click)="eliminarUsuario(usuario.idUsuario)">Eliminar</button>
+                  </td>
+                </tr>
+              }
+            }
+            @if (!cargando && usuarios.length === 0) {
+              <tr>
+                <td colspan="5" class="text-center text-secondary py-4">
+                  No hay usuarios registrados en el sistema
+                </td>
+              </tr>
+            }
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
