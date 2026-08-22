@@ -1,6 +1,5 @@
 package pe.avansys.colegio.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +10,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/matriculas")
-
 public class MatriculaController {
 
-    @Autowired
-    private MatriculaService matriculaService;
+    private final MatriculaService matriculaService;
+
+    public MatriculaController(MatriculaService matriculaService) {
+        this.matriculaService = matriculaService;
+    }
 
     @GetMapping
     public List<Matricula> listarTodas() {
@@ -33,6 +34,11 @@ public class MatriculaController {
     public ResponseEntity<Matricula> crear(@RequestBody Matricula matricula) {
         Matricula nueva = matriculaService.guardar(matricula);
         return ResponseEntity.status(HttpStatus.CREATED).body(nueva);
+    }
+
+    @GetMapping("/aula/{idAula}")
+    public List<Matricula> listarPorAula(@PathVariable Long idAula) {
+        return matriculaService.listarPorAula(idAula);
     }
 
     @PutMapping("/{id}")

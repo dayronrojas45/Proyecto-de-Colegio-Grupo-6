@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class MatriculaService {
 
     @Autowired
@@ -30,5 +29,8 @@ public class MatriculaService {
     public void eliminar(Long id) {
         matriculaRepository.deleteById(id);
     }
-}
 
+    public List<Matricula> listarPorAula(Long idAula) {
+        return matriculaRepository.findByAulaIdAula(idAula);
+    }
+}

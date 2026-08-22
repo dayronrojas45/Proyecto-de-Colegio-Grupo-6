@@ -12,6 +12,7 @@ import { ProfesorCurso } from './pages/profesor-curso/profesor-curso';
 import { Horario } from './pages/horario/horario';
 import { Matricula } from './pages/matricula/matricula';
 import { Calificacion } from './pages/calificacion/calificacion';
+import { Asistencia } from './pages/asistencia/asistencia';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -32,6 +33,7 @@ export const routes: Routes = [
       { path: 'horarios', component: Horario },
       { path: 'matricula', component: Matricula },
       { path: 'calificaciones', component: Calificacion },
+      { path: 'asistencia', component: Asistencia },
     ],
   },
   { path: 'usuarios', redirectTo: 'welcome/usuarios', pathMatch: 'full' },
@@ -44,5 +46,6 @@ export const routes: Routes = [
   { path: 'horarios', redirectTo: 'welcome/horarios', pathMatch: 'full' },
   { path: 'matricula', redirectTo: 'welcome/matricula', pathMatch: 'full' },
   { path: 'calificaciones', redirectTo: 'welcome/calificaciones', pathMatch: 'full' },
+  { path: 'asistencia', redirectTo: 'welcome/asistencia', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' },
 ];
