@@ -66,6 +66,23 @@ public class ProfesorCursoService {
     }
 
     @Transactional
+    public ProfesorCursoDTO actualizarAsignacion(Long id, ProfesorCursoDTO dto) {
+        ProfesorCurso profesorCurso = profesorCursoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Asignación no encontrada"));
+
+        Profesor profesor = profesorRepository.findById(dto.getIdProfesor())
+                .orElseThrow(() -> new RuntimeException("Profesor no encontrado"));
+        CursoGrado cursoGrado = cursoGradoRepository.findById(dto.getIdCursoGrado())
+                .orElseThrow(() -> new RuntimeException("Curso-Grado no encontrado"));
+
+        profesorCurso.setProfesor(profesor);
+        profesorCurso.setCursoGrado(cursoGrado);
+
+        profesorCurso = profesorCursoRepository.save(profesorCurso);
+        return convertirADTO(profesorCurso);
+    }
+
+    @Transactional
     public void eliminarAsignacion(Long  id) {
         if (!profesorCursoRepository.existsById(id)) {
             throw new RuntimeException("Asignación no encontrada");

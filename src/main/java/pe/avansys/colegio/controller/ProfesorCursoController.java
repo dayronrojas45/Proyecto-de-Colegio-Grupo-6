@@ -27,6 +27,12 @@ public class ProfesorCursoController {
         return ResponseEntity.ok(profesorCursoService.listarAsignaciones());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ProfesorCursoDTO> actualizarAsignacion(@PathVariable Long id, @RequestBody ProfesorCursoDTO dto) {
+        ProfesorCursoDTO actualizado = profesorCursoService.actualizarAsignacion(id, dto);
+        return ResponseEntity.ok(actualizado);
+    }
+
     @GetMapping("/profesor/{idProfesor}")
     public ResponseEntity<List<ProfesorCursoDTO>> listarPorProfesor(@PathVariable Long  idProfesor) {
         return ResponseEntity.ok(profesorCursoService.listarPorProfesor(idProfesor));

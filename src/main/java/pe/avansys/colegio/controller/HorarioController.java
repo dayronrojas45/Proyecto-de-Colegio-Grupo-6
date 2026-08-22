@@ -27,6 +27,12 @@ public class HorarioController {
         return ResponseEntity.ok(horarioService.listarHorarios());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<HorarioDTO> actualizarHorario(@PathVariable Long id, @RequestBody CrearHorarioRequestDTO dto) {
+        HorarioDTO actualizado = horarioService.actualizarHorario(id, dto);
+        return ResponseEntity.ok(actualizado);
+    }
+
     @GetMapping("/profesor/{idProfesor}")
     public ResponseEntity<List<HorarioDTO>> listarPorProfesor(@PathVariable Long  idProfesor) {
         return ResponseEntity.ok(horarioService.listarPorProfesor(idProfesor));

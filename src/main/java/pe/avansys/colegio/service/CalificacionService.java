@@ -16,6 +16,20 @@ public class CalificacionService {
         this.calificacionRepository = calificacionRepository;
     }
 
+    public Calificacion actualizar(Long id, Calificacion calificacion) {
+        return calificacionRepository.findById(id)
+                .map(c -> {
+                    c.setAlumno(calificacion.getAlumno());
+                    c.setProfesorCurso(calificacion.getProfesorCurso());
+                    c.setBimestre(calificacion.getBimestre());
+                    c.setPc1(calificacion.getPc1());
+                    c.setPc2(calificacion.getPc2());
+                    c.setExamenFinal(calificacion.getExamenFinal());
+                    c.setPromedio(calificacion.getPromedio());
+                    return calificacionRepository.save(c);
+                }).orElseThrow(() -> new RuntimeException("Calificación no encontrada"));
+    }
+
     public Calificacion registrar(Calificacion calificacion) {
         return calificacionRepository.save(calificacion);
     }

@@ -76,6 +76,38 @@ public class HorarioService {
         return convertirADTO(horario);
     }
 
+    @Transactional
+    public HorarioDTO actualizarHorario(Long id, CrearHorarioRequestDTO dto) {
+        Horario horario = horarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Horario no encontrado"));
+
+        ProfesorCurso profesorCurso = profesorCursoRepository.findById(dto.getIdProfesorCurso())
+                .orElseThrow(() -> new RuntimeException("Asignación profesor-curso no encontrada"));
+
+        Aula aula = aulaRepository.findById(dto.getIdAula())
+                .orElseThrow(() -> new RuntimeException("Aula no encontrada"));
+
+        if (dto.getHoraInicio().isAfter(dto.getHoraFin()) || dto.getHoraInicio().equals(dto.getHoraFin())) {
+            throw new RuntimeException("La hora de inicio debe ser menor que la hora de fin");
+        }
+
+        Dia diaEnum;
+        try {
+            diaEnum = Dia.valueOf(dto.getDia().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Día inválido. Debe ser LUNES, MARTES, MIERCOLES, JUEVES o VIERNES");
+        }
+
+        horario.setProfesorCurso(profesorCurso);
+        horario.setAula(aula);
+        horario.setDia(diaEnum);
+        horario.setHoraInicio(dto.getHoraInicio());
+        horario.setHoraFin(dto.getHoraFin());
+
+        horario = horarioRepository.save(horario);
+        return convertirADTO(horario);
+    }
+
     public List<HorarioDTO> listarHorarios() {
         return horarioRepository.findAll().stream()
                 .map(this::convertirADTO)

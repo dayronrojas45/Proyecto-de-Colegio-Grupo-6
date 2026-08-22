@@ -20,6 +20,11 @@ public class CursoGradoController {
     public ResponseEntity<CursoGradoDTO> asignarCursoAGrado(@RequestBody CursoGradoDTO dto) {
         return new ResponseEntity<>(cursoGradoService.asignarCursoAGrado(dto), HttpStatus.CREATED);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<CursoGradoDTO> actualizarAsignacion(@PathVariable Long id, @RequestBody CursoGradoDTO dto) {
+        CursoGradoDTO actualizado = cursoGradoService.actualizarAsignacion(id, dto);
+        return ResponseEntity.ok(actualizado);
+    }
 
     @GetMapping
     public ResponseEntity<List<CursoGradoDTO>> listarAsignaciones() {

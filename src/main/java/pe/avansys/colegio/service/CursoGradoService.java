@@ -56,6 +56,27 @@ public class CursoGradoService {
         return convertirADTO(cursoGrado);
     }
 
+    @Transactional
+    public CursoGradoDTO actualizarAsignacion(Long id, CursoGradoDTO dto) {
+        CursoGrado cursoGrado = cursoGradoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Asignación no encontrada"));
+
+        Curso curso = cursoRepository.findById(dto.getIdCurso())
+                .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
+        Nivel nivel = nivelRepository.findById(dto.getIdNivel())
+                .orElseThrow(() -> new RuntimeException("Nivel no encontrado"));
+        Grado grado = gradoRepository.findById(dto.getIdGrado())
+                .orElseThrow(() -> new RuntimeException("Grado no encontrado"));
+
+        cursoGrado.setCurso(curso);
+        cursoGrado.setNivel(nivel);
+        cursoGrado.setGrado(grado);
+        cursoGrado.setHorasSemanales(dto.getHorasSemanales());
+
+        cursoGrado = cursoGradoRepository.save(cursoGrado);
+        return convertirADTO(cursoGrado);
+    }
+
     public List<CursoGradoDTO> listarAsignaciones() {
         return cursoGradoRepository.findAll().stream()
                 .map(this::convertirADTO)
@@ -84,6 +105,11 @@ public class CursoGradoService {
 
     private CursoGradoDTO convertirADTO(CursoGrado cursoGrado) {
         CursoGradoDTO dto = new CursoGradoDTO();
+        dto.setIdCursoGrado(cursoGrado.getIdCursoGrado());
+        dto.setIdCurso(cursoGrado.getCurso().getIdCurso());
+        dto.setIdNivel(cursoGrado.getNivel().getIdNivel());
+        dto.setIdGrado(cursoGrado.getGrado().getIdGrado());
+
         dto.setNombreCurso(cursoGrado.getCurso().getNombre());
         dto.setNombreNivel(cursoGrado.getNivel().getNombre());
         dto.setNombreGrado(cursoGrado.getGrado().getNombre());

@@ -29,6 +29,16 @@ public class CalificacionController {
                 .body(nueva);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Calificacion> actualizar(
+            @PathVariable Long id,
+            @RequestBody Calificacion calificacion) {
+
+        return ResponseEntity.ok(
+                calificacionService.actualizar(id, calificacion)
+        );
+    }
+
     @GetMapping
     public ResponseEntity<List<Calificacion>> listar() {
 

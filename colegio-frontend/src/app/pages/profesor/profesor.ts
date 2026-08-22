@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfesorService } from '../../services/profesor.service';
-import { UsuarioService } from '../../services/usuario.service'; // 👈 Importa el servicio de Usuario
+import { UsuarioService } from '../../services/usuario.service';
 import { Profesor } from '../../models/profesor.model';
 import { Usuario } from '../../models/usuario.model';
 
@@ -72,7 +72,6 @@ export class Profesores implements OnInit {
   }
 
   cargarUsuariosDisponibles(): void {
-    // Obtenemos TODOS los usuarios
     this.usuarioService.obtenerUsuarios().subscribe({
       next: (todosLosUsuarios) => {
 
@@ -132,7 +131,6 @@ export class Profesores implements OnInit {
   }
 
   guardarProfesor(): void {
-    // Validaciones
     if (!this.profesorForm.nombres.trim() || !this.profesorForm.apellidos.trim()) {
       alert('Ingrese nombres y apellidos del profesor');
       return;
@@ -141,7 +139,6 @@ export class Profesores implements OnInit {
       alert('Ingrese el DNI del profesor');
       return;
     }
-    // Validamos que haya seleccionado un usuario
     if (!this.profesorForm.usuario || !this.profesorForm.usuario.idUsuario) {
       alert('Debe seleccionar un usuario de la lista');
       return;

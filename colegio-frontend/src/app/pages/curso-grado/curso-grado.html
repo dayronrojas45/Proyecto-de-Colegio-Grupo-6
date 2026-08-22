@@ -1,0 +1,119 @@
+<div>
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+      <h4 class="fw-bold mb-1">Curso - Grado</h4>
+      <p class="text-secondary mb-0">Asignación de cursos a niveles y grados</p>
+    </div>
+    <button class="btn btn-primary" (click)="abrirCrear()">
+      <span class="me-1">➕</span> Nueva Asignación
+    </button>
+  </div>
+
+  @if (mostrarFormulario) {
+    <div class="card shadow-sm mb-4 border-primary">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+          @if (editando) { Editar Asignación }
+          @else if (modoVer) { Ver Asignación }
+          @else { Nueva Asignación }
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Curso</label>
+            <select class="form-select" [(ngModel)]="cursoGradoForm.idCurso" [disabled]="modoVer">
+              <option [ngValue]="0" disabled>-- Seleccione Curso --</option>
+              @for (curso of cursos; track curso.idCurso) {
+                <option [ngValue]="curso.idCurso">{{ curso.nombre }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nivel</label>
+            <select class="form-select" [(ngModel)]="cursoGradoForm.idNivel" [disabled]="modoVer">
+              <option [ngValue]="0" disabled>-- Seleccione Nivel --</option>
+              @for (nivel of niveles; track nivel.idNivel) {
+                <option [ngValue]="nivel.idNivel">{{ nivel.nombre }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Grado</label>
+            <select class="form-select" [(ngModel)]="cursoGradoForm.idGrado" [disabled]="modoVer">
+              <option [ngValue]="0" disabled>-- Seleccione Grado --</option>
+              @for (grado of grados; track grado.idGrado) {
+                <option [ngValue]="grado.idGrado">{{ grado.nombre }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Horas Semanales</label>
+            <input type="number" class="form-control" [(ngModel)]="cursoGradoForm.horasSemanales" [disabled]="modoVer" placeholder="Ej: 4">
+          </div>
+
+        </div>
+
+        <div class="mt-3 d-flex gap-2">
+          @if (modoVer) {
+            <button class="btn btn-secondary" (click)="cancelar()">Cerrar</button>
+          } @else {
+            <button class="btn btn-success" (click)="guardarAsignacion()">
+              @if (editando) { Actualizar } @else { Guardar }
+            </button>
+            <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+          <tr>
+            <th style="width: 50px;">#</th>
+            <th>CURSO</th>
+            <th>NIVEL</th>
+            <th>GRADO</th>
+            <th>HORAS</th>
+            <th style="width: 280px;">ACCIONES</th>
+          </tr>
+          </thead>
+          <tbody>
+            @if (cargando) {
+              <tr><td colspan="6" class="text-center text-secondary py-4">Cargando asignaciones...</td></tr>
+            }
+
+            @if (!cargando && asignaciones.length > 0) {
+              @for (asignacion of asignaciones; track asignacion.idCursoGrado; let i = $index) {
+                <tr>
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ asignacion.nombreCurso }}</td>
+                  <td>{{ asignacion.nombreNivel }}</td>
+                  <td>{{ asignacion.nombreGrado }}</td>
+                  <td>{{ asignacion.horasSemanales }}</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-info me-1" (click)="abrirVer(asignacion)">Ver</button>
+                    <button class="btn btn-sm btn-outline-warning me-1" (click)="abrirEditar(asignacion)">Editar</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="eliminarAsignacion(asignacion.idCursoGrado)">Eliminar</button>
+                  </td>
+                </tr>
+              }
+            }
+
+            @if (!cargando && asignaciones.length === 0) {
+              <tr><td colspan="6" class="text-center text-secondary py-4">No hay asignaciones registradas</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

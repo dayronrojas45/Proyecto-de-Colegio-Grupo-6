@@ -91,7 +91,6 @@ export class Roles implements OnInit {
   }
 
   abrirEditar(rol: Rol): void {
-    // Copia profunda para no modificar la tabla mientras se edita
     this.rolForm = JSON.parse(JSON.stringify(rol));
     this.editando = true;
     this.modoVer = false;

@@ -1,0 +1,142 @@
+
+<div>
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+      <h4 class="fw-bold mb-1">Aulas</h4>
+      <p class="text-secondary mb-0">Gestión de aulas del sistema</p>
+    </div>
+    <button class="btn btn-primary" (click)="abrirCrear()">
+      <span class="me-1">➕</span> Nuevo Aula
+    </button>
+  </div>
+
+  <!-- FORMULARIO -->
+  @if (mostrarFormulario) {
+    <div class="card shadow-sm mb-4 border-primary">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+          @if (editando) { Editar Aula }
+          @else if (modoVer) { Ver Aula }
+          @else { Nuevo Aula }
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+
+          <!-- ID Aula -->
+          @if (editando || modoVer) {
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">ID Aula</label>
+              <input type="text" class="form-control" [value]="aulaForm.idAula" disabled>
+            </div>
+          }
+
+          <!-- NIVEL -->
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Nivel</label>
+            <select class="form-select" [(ngModel)]="aulaForm.nivel.idNivel" [disabled]="modoVer">
+              <option [ngValue]="0" disabled>-- Seleccione Nivel --</option>
+              @for (nivel of niveles; track nivel.idNivel) {
+                <option [ngValue]="nivel.idNivel">{{ nivel.nombre }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- GRADO -->
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Grado</label>
+            <select class="form-select" [(ngModel)]="aulaForm.grado.idGrado" [disabled]="modoVer">
+              <option [ngValue]="0" disabled>-- Seleccione Grado --</option>
+              @for (grado of grados; track grado.idGrado) {
+                <option [ngValue]="grado.idGrado">{{ grado.nombre }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- SECCIÓN -->
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Sección</label>
+            <input type="text" class="form-control" [(ngModel)]="aulaForm.seccion" [disabled]="modoVer" placeholder="Ej: A, B, C">
+          </div>
+
+          <!-- CAPACIDAD -->
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Capacidad</label>
+            <input type="number" class="form-control" [(ngModel)]="aulaForm.capacidad" [disabled]="modoVer" placeholder="30">
+          </div>
+
+          <!-- TUTOR (PROFESOR) -->
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Tutor (Profesor)</label>
+            <select class="form-select" [(ngModel)]="aulaForm.tutor.idProfesor" [disabled]="modoVer">
+              <option [ngValue]="0" disabled>-- Seleccione Profesor --</option>
+              @for (profesor of profesores; track profesor.idProfesor) {
+                <option [ngValue]="profesor.idProfesor">{{ profesor.nombres }} {{ profesor.apellidos }}</option>
+              }
+            </select>
+          </div>
+
+        </div>
+
+        <div class="mt-3 d-flex gap-2">
+          @if (modoVer) {
+            <button class="btn btn-secondary" (click)="cancelar()">Cerrar</button>
+          } @else {
+            <button class="btn btn-success" (click)="guardarAula()">
+              @if (editando) { Actualizar } @else { Guardar }
+            </button>
+            <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- TABLA DE AULAS -->
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+          <tr>
+            <th style="width: 50px;">#</th>
+            <th>NIVEL</th>
+            <th>GRADO</th>
+            <th>SECCIÓN</th>
+            <th>CAPACIDAD</th>
+            <th>TUTOR</th>
+            <th style="width: 280px;">ACCIONES</th>
+          </tr>
+          </thead>
+          <tbody>
+            @if (cargando) {
+              <tr><td colspan="7" class="text-center text-secondary py-4">Cargando aulas...</td></tr>
+            }
+
+            @if (!cargando && aulas.length > 0) {
+              @for (aula of aulas; track aula.idAula; let i = $index) {
+                <tr>
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ aula.nivel.nombre }}</td>
+                  <td>{{ aula.grado.nombre }}</td>
+                  <td>{{ aula.seccion }}</td>
+                  <td>{{ aula.capacidad }}</td>
+                  <td>{{ aula.tutor.nombres }} {{ aula.tutor.apellidos }}</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-info me-1" (click)="abrirVer(aula)">Ver</button>
+                    <button class="btn btn-sm btn-outline-warning me-1" (click)="abrirEditar(aula)">Editar</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="eliminarAula(aula.idAula)">Eliminar</button>
+                  </td>
+                </tr>
+              }
+            }
+
+            @if (!cargando && aulas.length === 0) {
+              <tr><td colspan="7" class="text-center text-secondary py-4">No hay aulas registradas</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
