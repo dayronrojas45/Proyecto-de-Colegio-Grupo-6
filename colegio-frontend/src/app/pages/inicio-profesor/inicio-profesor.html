@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm bg-success text-white">
+        <div class="card-body p-5">
+          <h2 class="display-5 fw-bold">👋 ¡Bienvenido, Profesor {{ nombre }}!</h2>
+          <p class="lead mb-0">Rol: <span class="badge bg-white text-success fs-6">{{ rol }}</span></p>
+          <p class="mt-3 mb-0">Gestiona la asistencia y calificaciones de tus estudiantes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center p-4">
+          <i class="bi bi-clipboard-check display-4 text-primary">📋</i>
+          <h5 class="mt-3">Control de Asistencia</h5>
+          <p class="text-secondary">Registra y gestiona la asistencia de tus clases</p>
+          <a routerLink="/welcome/asistencia" class="btn btn-primary">Ir a Asistencia</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center p-4">
+          <i class="bi bi-star display-4 text-warning">⭐</i>
+          <h5 class="mt-3">Calificaciones</h5>
+          <p class="text-secondary">Ingresa y modifica las calificaciones de tus estudiantes</p>
+          <a routerLink="/welcome/calificaciones" class="btn btn-warning">Ir a Calificaciones</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

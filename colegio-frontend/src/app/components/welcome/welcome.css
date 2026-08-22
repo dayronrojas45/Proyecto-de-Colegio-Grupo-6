@@ -1,40 +1,38 @@
-
+/* welcome.css */
 .sidebar {
   width: 260px;
-  transition: width 0.3s ease;
-  overflow-y: auto;
+  min-height: 100vh;
   background-color: #1a2332 !important;
-}
-
-.sidebar.collapsed {
-  width: 70px;
-}
-
-.sidebar.collapsed .nav-link span:not(.me-2) {
-  display: none;
-}
-
-.sidebar.collapsed .border-top .nav-link span:not(.me-2) {
-  display: none;
+  overflow-y: auto;
+  flex-shrink: 0;
 }
 
 .sidebar .nav-link {
+  color: #fff !important;
   border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
   transition: all 0.2s;
-  font-size: 0.9rem;
 }
 
 .sidebar .nav-link:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar .nav-link.active {
-  background: rgba(13, 110, 253, 0.25);
+  background: rgba(13, 110, 253, 0.3);
   color: #fff !important;
 }
 
 .sidebar .nav-link .me-2 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -48,61 +46,4 @@
 .sidebar::-webkit-scrollbar-thumb {
   background: #495057;
   border-radius: 4px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: #6c757d;
-}
-
-.breadcrumb-item a {
-  color: #6c757d;
-}
-
-.breadcrumb-item a:hover {
-  color: #0d6efd;
-}
-
-.card {
-  border: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-}
-
-.card-body {
-  padding: 0.75rem;
-}
-
-
-.display-4 {
-  font-size: 2.5rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 70px;
-  }
-
-  .sidebar .nav-link span:not(.me-2) {
-    display: none;
-  }
-
-  .sidebar .border-top .nav-link span:not(.me-2) {
-    display: none;
-  }
-
-  .sidebar .border-top .nav-link span.me-2 {
-    margin-right: 0 !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .display-4 {
-    font-size: 1.8rem;
-  }
 }

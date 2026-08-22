@@ -1,4 +1,3 @@
-
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
@@ -37,5 +36,22 @@ export class Auth {
 
   getRol(): string | null {
     return this.getUsuario()?.rol ?? null;
+  }
+
+  getNombreUsuario(): string {
+    return this.getUsuario()?.username ?? '';
+  }
+
+  isAdmin(): boolean {
+    const rol = this.getRol();
+    return rol === 'ADMINISTRADOR' || rol === 'ADMIN';
+  }
+
+  isProfesor(): boolean {
+    return this.getRol() === 'PROFESOR';
+  }
+
+  isAlumno(): boolean {
+    return this.getRol() === 'ALUMNO';
   }
 }

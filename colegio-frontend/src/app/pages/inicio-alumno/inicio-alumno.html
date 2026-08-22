@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm bg-info text-white">
+        <div class="card-body p-5">
+          <h2 class="display-5 fw-bold">👋 ¡Bienvenido, {{ nombre }}!</h2>
+          <p class="lead mb-0">Rol: <span class="badge bg-white text-info fs-6">{{ rol }}</span></p>
+          <p class="mt-3 mb-0">Consulta tus calificaciones y sigue tu progreso académico.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body text-center p-4">
+          <i class="bi bi-star display-4 text-info">⭐</i>
+          <h5 class="mt-3">Mis Calificaciones</h5>
+          <p class="text-secondary">Consulta tus notas y promedio académico</p>
+          <a routerLink="/welcome/calificaciones" class="btn btn-info text-white">Ver Mis Calificaciones</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center p-4">
+          <i class="bi bi-info-circle display-4 text-secondary">ℹ️</i>
+          <h5 class="mt-3">Nota Importante</h5>
+          <p class="text-secondary">Solo puedes consultar información, no puedes modificar datos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

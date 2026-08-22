@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm bg-primary text-white">
+        <div class="card-body p-5">
+          <h2 class="display-5 fw-bold">👋 ¡Bienvenido, {{ nombre }}!</h2>
+          <p class="lead mb-0">Rol: <span class="badge bg-white text-primary fs-6">{{ rol }}</span></p>
+          <p class="mt-3 mb-0">Tienes acceso completo a todas las funcionalidades del sistema.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center p-4">
+          <i class="bi bi-people display-4 text-primary">👥</i>
+          <h5 class="mt-3">Gestión de Usuarios</h5>
+          <p class="text-secondary">Administra usuarios, roles y permisos</p>
+          <a routerLink="/welcome/usuarios" class="btn btn-primary">Ir a Usuarios</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center p-4">
+          <i class="bi bi-mortarboard display-4 text-success">🎓</i>
+          <h5 class="mt-3">Gestión Académica</h5>
+          <p class="text-secondary">Administra alumnos, profesores y cursos</p>
+          <a routerLink="/welcome/alumnos" class="btn btn-success">Ir a Alumnos</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center p-4">
+          <i class="bi bi-calendar-check display-4 text-warning">📅</i>
+          <h5 class="mt-3">Horarios y Aulas</h5>
+          <p class="text-secondary">Gestiona horarios, aulas y matrículas</p>
+          <a routerLink="/welcome/horarios" class="btn btn-warning">Ir a Horarios</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,9 @@ import { Horario } from './pages/horario/horario';
 import { Matricula } from './pages/matricula/matricula';
 import { Calificacion } from './pages/calificacion/calificacion';
 import { Asistencia } from './pages/asistencia/asistencia';
+import { InicioAdmin } from './pages/inicio-admin/inicio-admin';
+import { InicioProfesor } from './pages/inicio-profesor/inicio-profesor';
+import { InicioAlumno } from './pages/inicio-alumno/inicio-alumno';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,7 +24,11 @@ export const routes: Routes = [
     path: 'welcome',
     component: Welcome,
     children: [
-      { path: '', redirectTo: 'admin', pathMatch: 'full' },
+      { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+      { path: 'inicio', component: InicioAdmin },
+      { path: 'inicio-profesor', component: InicioProfesor },
+      { path: 'inicio-alumno', component: InicioAlumno },
+
       { path: 'admin', component: Admin },
       { path: 'usuarios', component: Usuarios },
       { path: 'roles', component: Roles },
@@ -36,16 +43,5 @@ export const routes: Routes = [
       { path: 'asistencia', component: Asistencia },
     ],
   },
-  { path: 'usuarios', redirectTo: 'welcome/usuarios', pathMatch: 'full' },
-  { path: 'roles', redirectTo: 'welcome/roles', pathMatch: 'full' },
-  { path: 'profesores', redirectTo: 'welcome/profesores', pathMatch: 'full' },
-  { path: 'alumnos', redirectTo: 'welcome/alumnos', pathMatch: 'full' },
-  { path: 'aulas', redirectTo: 'welcome/aulas', pathMatch: 'full' },
-  { path: 'curso-grado', redirectTo: 'welcome/curso-grado', pathMatch: 'full' },
-  { path: 'profesor-curso', redirectTo: 'welcome/profesor-curso', pathMatch: 'full' },
-  { path: 'horarios', redirectTo: 'welcome/horarios', pathMatch: 'full' },
-  { path: 'matricula', redirectTo: 'welcome/matricula', pathMatch: 'full' },
-  { path: 'calificaciones', redirectTo: 'welcome/calificaciones', pathMatch: 'full' },
-  { path: 'asistencia', redirectTo: 'welcome/asistencia', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' },
 ];

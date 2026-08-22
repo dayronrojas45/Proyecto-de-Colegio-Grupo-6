@@ -1,15 +1,20 @@
 <div>
   <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
     <div>
-      <h4 class="fw-bold mb-1">Calificaciones</h4>
-      <p class="text-secondary mb-0">Gestión de calificaciones del sistema</p>
+      <h4 class="fw-bold mb-1">{{ esAlumno ? 'Mis Calificaciones' : 'Calificaciones' }}</h4>
+      <p class="text-secondary mb-0">
+        {{ esAlumno ? 'Consulta tus notas y promedio académico' : 'Gestión de calificaciones del sistema' }}
+      </p>
     </div>
-    <button class="btn btn-primary" (click)="abrirCrear()">
-      <span class="me-1">➕</span> Nueva Calificación
-    </button>
+
+    @if (puedeGestionar) {
+      <button class="btn btn-primary" (click)="abrirCrear()">
+        <span class="me-1">➕</span> Nueva Calificación
+      </button>
+    }
   </div>
 
-  @if (mostrarFormulario) {
+  @if (mostrarFormulario && puedeGestionar) {
     <div class="card shadow-sm mb-4 border-primary">
       <div class="card-header bg-primary text-white">
         <h5 class="mb-0">
@@ -104,43 +109,68 @@
           <thead class="table-light">
           <tr>
             <th style="width: 50px;">#</th>
-            <th>ALUMNO</th>
+            @if (!esAlumno) {
+              <th>ALUMNO</th>
+            }
             <th>CURSO</th>
             <th>BIMESTRE</th>
             <th>PC1</th>
             <th>PC2</th>
             <th>EXAMEN</th>
             <th>PROMEDIO</th>
-            <th style="width: 280px;">ACCIONES</th>
+            @if (puedeGestionar) {
+              <th style="width: 280px;">ACCIONES</th>
+            }
           </tr>
           </thead>
           <tbody>
             @if (cargando) {
-              <tr><td colspan="9" class="text-center text-secondary py-4">Cargando calificaciones...</td></tr>
+              <tr>
+                <td [attr.colspan]="esAlumno ? 7 : 9" class="text-center text-secondary py-4">
+                  Cargando calificaciones...
+                </td>
+              </tr>
             }
 
             @if (!cargando && calificaciones.length > 0) {
               @for (calificacion of calificaciones; track calificacion.idCalificacion; let i = $index) {
                 <tr>
                   <td>{{ i + 1 }}</td>
-                  <td>{{ calificacion.alumno.nombres }} {{ calificacion.alumno.apellidos }}</td>
+                  @if (!esAlumno) {
+                    <td>{{ calificacion.alumno.nombres }} {{ calificacion.alumno.apellidos }}</td>
+                  }
                   <td>{{ calificacion.profesorCurso.nombreCurso }}</td>
                   <td>{{ calificacion.bimestre }}</td>
                   <td>{{ calificacion.pc1 }}</td>
                   <td>{{ calificacion.pc2 }}</td>
                   <td>{{ calificacion.examenFinal }}</td>
-                  <td>{{ calificacion.promedio }}</td>
                   <td>
-                    <button class="btn btn-sm btn-outline-info me-1" (click)="abrirVer(calificacion)">Ver</button>
-                    <button class="btn btn-sm btn-outline-warning me-1" (click)="abrirEditar(calificacion)">Editar</button>
-                    <button class="btn btn-sm btn-outline-danger" (click)="eliminarCalificacion(calificacion.idCalificacion)">Eliminar</button>
+                    <span class="fw-bold" [ngClass]="getPromedioColor(calificacion.promedio)">
+                      {{ calificacion.promedio }}
+                    </span>
                   </td>
+
+                  @if (puedeGestionar) {
+                    <td>
+                      <button class="btn btn-sm btn-outline-info me-1" (click)="abrirVer(calificacion)">Ver</button>
+                      <button class="btn btn-sm btn-outline-warning me-1" (click)="abrirEditar(calificacion)">Editar</button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="eliminarCalificacion(calificacion.idCalificacion)">Eliminar</button>
+                    </td>
+                  } @else {
+                    <td>
+                      <button class="btn btn-sm btn-outline-info" (click)="abrirVer(calificacion)">Ver</button>
+                    </td>
+                  }
                 </tr>
               }
             }
 
             @if (!cargando && calificaciones.length === 0) {
-              <tr><td colspan="9" class="text-center text-secondary py-4">No hay calificaciones registradas</td></tr>
+              <tr>
+                <td [attr.colspan]="esAlumno ? 7 : 9" class="text-center text-secondary py-4">
+                  No hay calificaciones registradas
+                </td>
+              </tr>
             }
           </tbody>
         </table>

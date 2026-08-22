@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CalificacionService } from '../../services/calificacion.service';
 import { CalificacionDTO } from '../../models/calificacion.model';
 import { Alumno } from '../../models/alumno.model';
 import { ProfesorCursoDTO } from '../../models/profesor-curso.model';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-calificacion',
@@ -14,6 +15,10 @@ import { ProfesorCursoDTO } from '../../models/profesor-curso.model';
   styleUrl: './calificacion.css',
 })
 export class Calificacion implements OnInit {
+  private auth = inject(Auth);
+  private calificacionService = inject(CalificacionService);
+  private cdr = inject(ChangeDetectorRef);
+
   calificaciones: CalificacionDTO[] = [];
   cargando: boolean = true;
 
@@ -26,14 +31,27 @@ export class Calificacion implements OnInit {
 
   calificacionForm: CalificacionDTO = this.inicializarFormVacio();
 
-  constructor(
-    private calificacionService: CalificacionService,
-    private cdr: ChangeDetectorRef,
-  ) {}
+  get esAdmin(): boolean {
+    return this.auth.isAdmin();
+  }
+
+  get esProfesor(): boolean {
+    return this.auth.isProfesor();
+  }
+
+  get esAlumno(): boolean {
+    return this.auth.isAlumno();
+  }
+
+  get puedeGestionar(): boolean {
+    return this.esAdmin || this.esProfesor;
+  }
 
   ngOnInit(): void {
     this.cargarCalificaciones();
-    this.cargarCatalogos();
+    if (this.puedeGestionar) {
+      this.cargarCatalogos();
+    }
   }
 
   inicializarFormVacio(): CalificacionDTO {
@@ -66,9 +84,11 @@ export class Calificacion implements OnInit {
 
   cargarCalificaciones(): void {
     this.cargando = true;
+
     this.calificacionService.obtenerCalificaciones().subscribe({
       next: (data) => {
         this.calificaciones = data;
+        console.log('Calificaciones cargadas:', this.calificaciones.length);
         this.cargando = false;
         this.cdr.detectChanges();
       },
@@ -84,21 +104,49 @@ export class Calificacion implements OnInit {
     this.calificacionService.obtenerAlumnos().subscribe({
       next: (data) => {
         this.alumnos = data;
+        console.log('Alumnos cargados:', this.alumnos.length);
         this.cdr.detectChanges();
       },
-      error: (err) => console.error('Error al obtener alumnos:', err),
+      error: (err) => {
+        console.error('Error al obtener alumnos:', err);
+      },
     });
 
     this.calificacionService.obtenerProfesoresCursos().subscribe({
       next: (data) => {
         this.profesoresCursos = data;
+        console.log('Profesores-Cursos cargados:', this.profesoresCursos.length);
         this.cdr.detectChanges();
       },
-      error: (err) => console.error('Error al obtener profesores-cursos:', err),
+      error: (err) => {
+        console.error('Error al obtener profesores-cursos con endpoint principal:', err);
+        console.log('Intentando con endpoint alternativo...');
+
+        this.calificacionService.obtenerProfesoresCursosAlternativo().subscribe({
+          next: (data) => {
+            this.profesoresCursos = data;
+            console.log(
+              'Profesores-Cursos cargados con endpoint alternativo:',
+              this.profesoresCursos.length,
+            );
+            this.cdr.detectChanges();
+          },
+          error: (err2) => {
+            console.error('Error al obtener profesores-cursos con endpoint alternativo:', err2);
+            alert(
+              'No se pudo cargar la lista de Profesor - Curso. Verifica que el backend tenga datos.',
+            );
+          },
+        });
+      },
     });
   }
 
   abrirCrear(): void {
+    if (!this.puedeGestionar) {
+      alert('No tienes permisos para crear calificaciones.');
+      return;
+    }
     this.calificacionForm = this.inicializarFormVacio();
     this.editando = false;
     this.modoVer = false;
@@ -138,6 +186,10 @@ export class Calificacion implements OnInit {
   }
 
   abrirEditar(calificacion: CalificacionDTO): void {
+    if (!this.puedeGestionar) {
+      alert('No tienes permisos para editar calificaciones.');
+      return;
+    }
     this.calificacionForm = {
       idCalificacion: calificacion.idCalificacion,
       alumno: {
@@ -170,6 +222,11 @@ export class Calificacion implements OnInit {
   }
 
   guardarCalificacion(): void {
+    if (!this.puedeGestionar) {
+      alert('No tienes permisos para guardar calificaciones.');
+      return;
+    }
+
     if (!this.calificacionForm.alumno.idAlumno) {
       alert('Seleccione un alumno');
       return;
@@ -244,6 +301,11 @@ export class Calificacion implements OnInit {
   }
 
   eliminarCalificacion(id: number): void {
+    if (!this.puedeGestionar) {
+      alert('No tienes permisos para eliminar calificaciones.');
+      return;
+    }
+
     const confirmar = confirm('¿Estás seguro de que quieres eliminar esta calificación?');
     if (!confirmar) return;
 
@@ -265,6 +327,7 @@ export class Calificacion implements OnInit {
     this.modoVer = false;
     this.calificacionForm = this.inicializarFormVacio();
   }
+
   calcularPromedio(): void {
     const pc1 = this.calificacionForm.pc1 || 0;
     const pc2 = this.calificacionForm.pc2 || 0;
@@ -281,5 +344,11 @@ export class Calificacion implements OnInit {
 
   prepararParaGuardar(): void {
     this.calcularPromedio();
+  }
+
+  getPromedioColor(promedio: number): string {
+    if (promedio >= 14) return 'text-success';
+    if (promedio >= 11) return 'text-warning';
+    return 'text-danger';
   }
 }
